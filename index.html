@@ -5,6 +5,139 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>todoist</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <body></body>
+  <body>
+    <header>
+      <div>
+        <h1>todoist</h1>
+      </div>
+    </header>
+    <div class="container">
+      <div class="sidebar">
+        <div class="default-projects">
+          <div class="project-list link active">
+            <img src="./home.png" alt="home image" />
+            <p>home</p>
+          </div>
+          <div class="project-list link">
+            <img src="./calendar.png" alt="calender image" />
+            <p>today</p>
+          </div>
+        </div>
+        <div class="projects-container">
+          <h3>projects</h3>
+          <div class="project link">
+            <div>
+              <img src="./checkbox.png" alt="project image" />
+              <p>project name</p>
+            </div>
+            <button><img src="./close.png" alt="remove project" /></button>
+          </div>
+          <div class="project link">
+            <div>
+              <img src="./checkbox.png" alt="project image" />
+              <p>project name</p>
+            </div>
+            <button><img src="./close.png" alt="remove project" /></button>
+          </div>
+        </div>
+        <div class="add-project link">
+          <img src="./plus.png" alt="add project" />add project
+        </div>
+        <div class="project-form hide-form">
+          <form>
+            <h4>new project</h4>
+            <div>
+              <label for="project">Name:</label>
+              <input
+                type="text"
+                name="project"
+                id="project"
+                placeholder="Enter category name"
+              />
+            </div>
+            <div class="form-btns">
+              <button>close</button>
+              <button type="submit">submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="content">
+        <h1>home</h1>
+        <div class="todos">
+          <div class="todo-container">
+            <div class="todo-prop">
+              <div class="todo-title">
+                <p>todo name</p>
+              </div>
+              <div class="todo-btns-container">
+                <button class="todo-btns">edit</button>
+                <button class="todo-btns">complete</button>
+                <button class="todo-btns">delete</button>
+              </div>
+            </div>
+            <div class="more-details hide-more-details">
+              <p>title: this titile</p>
+              <p>description: some cool descritption</p>
+              <p>due date: 21/3/2912</p>
+              <p>priority: high</p>
+            </div>
+          </div>
+          <div class="todo-container">
+            <div class="todo-prop">
+              <div class="todo-title">
+                <p>todo name</p>
+              </div>
+              <div class="todo-btns-container">
+                <button class="todo-btns">edit</button>
+                <button class="todo-btns">complete</button>
+                <button class="todo-btns">delete</button>
+              </div>
+            </div>
+            <div class="more-details hide-more-details">
+              <p>title: this titile</p>
+              <p>description: some cool descritption</p>
+              <p>due date: 21/3/2912</p>
+              <p>priority: high</p>
+            </div>
+          </div>
+        </div>
+        <div class="add-todo">
+          <button><img src="./plus.png" alt="add todo" /></button>
+          <p>add todo</p>
+        </div>
+        <div class="todo-form hide-form">
+          <form>
+            <h4>add todo</h4>
+            <div>
+              <label for="title">title</label>
+              <input type="text" name="title" id="title" />
+            </div>
+            <div>
+              <label for="description">description</label>
+              <input type="text" name="description" id="description" />
+            </div>
+            <div>
+              <label for="duedate">Due date</label>
+              <input type="date" name="duedate" id="duedate" />
+            </div>
+            <div>
+              <label for="priority">Priority</label>
+              <select>
+                <option>high</option>
+                <option>medium</option>
+                <option>low</option>
+              </select>
+            </div>
+            <div class="form-btns">
+              <button>close</button>
+              <button>add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
