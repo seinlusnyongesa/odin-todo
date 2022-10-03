@@ -21,4 +21,4 @@ function Project(name) {
   return project;
 }
 
-export default Project;
+module.exports = Project;
