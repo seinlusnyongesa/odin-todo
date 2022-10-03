@@ -1,4 +1,6 @@
-import { createProjects, createTodo } from "./dom/init";
+import UI from "./dom/ui";
+import Project from "./modules/project";
 
-createProjects();
-createTodo("home");
+document.addEventListener("DOMContentLoaded", () => {
+  UI.loadProjects(), UI.loadTodo("home");
+});

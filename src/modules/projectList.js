@@ -1,16 +1,27 @@
 const Project = require("./project");
 
-function ProjectList() {
+const projectList = (function () {
   let projects = [];
 
-  let _initial = ["home", "today"];
+  let _initial = ["home", "another", "ashiee"];
 
   for (let i of _initial) {
-    projects.push(Project(i));
+    addProject(Project(i));
   }
 
   function addProject(project) {
+    for (let i of projects) {
+      if (i.name === project.name) {
+        alert("name already exists");
+        return;
+      }
+    }
     projects.push(project);
+  }
+
+  function deleteProject(name) {
+    const modifiedList = projects.filter((project) => project.name !== name);
+    let projects = modifiedList;
   }
 
   function clear() {
@@ -18,7 +29,7 @@ function ProjectList() {
       projects.pop();
     }
   }
-  return { projects, addProject, clear };
-}
+  return { projects, addProject, clear, deleteProject };
+})();
 
-module.exports = ProjectList;
+module.exports = projectList;
