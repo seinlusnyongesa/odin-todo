@@ -1,5 +1,6 @@
 import Project from "../modules/project";
 import projectList from "../modules/projectList";
+import { formatDistanceToNow } from "date-fns";
 
 export default class UI {
   // display available projects
@@ -40,7 +41,9 @@ export default class UI {
       if (i.id === id) {
         todosHeader.innerHTML = `${i.name}`;
         for (let j of i.todos) {
-          todos.innerHTML += `<div class="todo-container" data-id=${j.id}>
+          todos.innerHTML += `<div class="todo-container ${
+            j.completed ? "completed" : ""
+          }" data-id=${j.id} >
                     <div class="todo-prop">
                       <div class="todo-title">
                         <p>${j.title}</p>
@@ -55,7 +58,9 @@ export default class UI {
                     <div class="more-details hide-more-details">
                       <p>title: ${j.title}</p>
                       <p>description: some cool descritption</p>
-                      <p>due date: ${j.dueDate}</p>
+                      <p>due : ${formatDistanceToNow(new Date(j.dueDate), {
+                        addSuffix: true,
+                      })}</p>
                       <p>priority: ${j.priority}</p>
                     </div>
                   </div>`;
@@ -266,6 +271,7 @@ export default class UI {
     let todoId =
       this.parentElement.parentElement.parentElement.getAttribute("data-id");
     projectList.completeTodo(categoryId, todoId);
+
     UI.clearTodoUI();
     UI.loadTodo(categoryId);
   }

@@ -202,7 +202,7 @@ header div {
 
 .more-details {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  grid-template-rows: repeat(4, auto);
   margin: 1rem;
   border: 1px solid black;
   padding: 1rem;
@@ -282,4 +282,8 @@ header div {
 
 .hide-form {
   display: none;
+}
+
+.completed {
+  text-decoration-line: line-through;
 }
