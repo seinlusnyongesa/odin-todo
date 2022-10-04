@@ -46,7 +46,9 @@ export default class UI {
                         <p>${j.title}</p>
                       </div>
                       <div class="todo-btns-container">
-                        <button class="todo-btns">complete</button>
+                        <button class="todo-btns">${
+                          j.completed ? "completed" : "complete"
+                        }</button>
                         <button class="todo-btns">delete</button>
                       </div>
                     </div>

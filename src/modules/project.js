@@ -8,6 +8,16 @@ function Project(name) {
   project.todos = [];
 
   project.addTodo = function (todo) {
+    if (todo.title === "" || todo.dueDate === "" || todo.dueDate === "") {
+      alert("fill in the fields before submiting");
+      return;
+    }
+    for (let i of project.todos) {
+      if (i.title === todo.title) {
+        alert("task exists, use another name");
+        return;
+      }
+    }
     project.todos.push(todo);
   };
 
