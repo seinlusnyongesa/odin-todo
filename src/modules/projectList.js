@@ -47,13 +47,29 @@ const projectList = (function () {
     }
   }
 
+  function completeTodo(projId, elementId) {
+    for (let i of projects) {
+      if (i.id === projId) {
+        i.completeTodo(elementId);
+      }
+    }
+  }
+
   function clear() {
     while (projects.length > 0) {
       projects.pop();
     }
   }
 
-  return { projects, addProject, clear, deleteProject, addTodos, removeTodo };
+  return {
+    projects,
+    addProject,
+    clear,
+    deleteProject,
+    addTodos,
+    removeTodo,
+    completeTodo,
+  };
 })();
 
 export default projectList;

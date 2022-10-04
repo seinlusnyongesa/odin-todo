@@ -239,6 +239,11 @@ export default class UI {
       ".todo-btns-container button:nth-child(2)"
     );
     deleteBtn.forEach((btn) => btn.addEventListener("click", UI.removeTodo));
+
+    const showTaskDetailsBtn = document.querySelectorAll(".todo-prop");
+    showTaskDetailsBtn.forEach((btn) =>
+      btn.addEventListener("click", UI.showTaskDetails)
+    );
   }
 
   static removeTodo() {
@@ -254,6 +259,21 @@ export default class UI {
   }
 
   static completeTodo() {
-    console.log("complete");
+    const categoryId = document
+      .querySelector(".active")
+      .getAttribute("data-name");
+
+    let todoId =
+      this.parentElement.parentElement.parentElement.getAttribute("data-id");
+    projectList.completeTodo(categoryId, todoId);
+    UI.clearTodoUI();
+    UI.loadTodo(categoryId);
+  }
+
+  static showTaskDetails() {
+    const div = document.querySelectorAll(".more-details");
+    div.forEach((e) => e.classList.add("hide-more-details"));
+
+    this.parentElement.children[1].classList.remove("hide-more-details");
   }
 }

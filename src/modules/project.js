@@ -28,6 +28,13 @@ function Project(name) {
       }
     }
   };
+  project.completeTodo = function (id) {
+    for (let i of project.todos) {
+      if (i.id === id) {
+        i.completeTodo(id);
+      }
+    }
+  };
   project.clear = function () {
     while (this.todos.length > 0) {
       project.todos.pop();
