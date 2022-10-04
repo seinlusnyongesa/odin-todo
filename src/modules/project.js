@@ -21,6 +21,13 @@ function Project(name) {
     project.todos.push(todo);
   };
 
+  project.deleteTodo = function (id) {
+    for (let i of project.todos) {
+      if (i.id === id) {
+        project.todos.splice(i, 1);
+      }
+    }
+  };
   project.clear = function () {
     while (this.todos.length > 0) {
       project.todos.pop();

@@ -31,6 +31,14 @@ const projectList = (function () {
     }
   }
 
+  function removeTodo(projId, elementId) {
+    for (let i of projects) {
+      if (i.id === projId) {
+        i.deleteTodo(elementId);
+      }
+    }
+  }
+
   function deleteProject(id) {
     for (let i = 0; i < projects.length; i++) {
       if (projects[i].id === id) {
@@ -45,7 +53,7 @@ const projectList = (function () {
     }
   }
 
-  return { projects, addProject, clear, deleteProject, addTodos };
+  return { projects, addProject, clear, deleteProject, addTodos, removeTodo };
 })();
 
 export default projectList;

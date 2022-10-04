@@ -40,7 +40,7 @@ export default class UI {
       if (i.id === id) {
         todosHeader.innerHTML = `${i.name}`;
         for (let j of i.todos) {
-          todos.innerHTML += `<div class="todo-container" data-id=${i.id}>
+          todos.innerHTML += `<div class="todo-container" data-id=${j.id}>
                     <div class="todo-prop">
                       <div class="todo-title">
                         <p>${j.title}</p>
@@ -62,6 +62,7 @@ export default class UI {
         }
       }
     }
+    UI.initTodoBtns();
     UI.initTodoFormBtns();
   }
 
@@ -204,7 +205,6 @@ export default class UI {
       priorityElement
     );
     UI.hideTodoForm(e);
-    console.log(projectList.projects);
   }
 
   static addTodo(name, values) {
@@ -225,5 +225,35 @@ export default class UI {
     description.value = "";
     dueDate.value = "";
     priority.value = "";
+  }
+
+  static initTodoBtns() {
+    const completeBtn = document.querySelectorAll(
+      ".todo-btns-container button:nth-child(1)"
+    );
+    completeBtn.forEach((btn) =>
+      btn.addEventListener("click", UI.completeTodo)
+    );
+
+    const deleteBtn = document.querySelectorAll(
+      ".todo-btns-container button:nth-child(2)"
+    );
+    deleteBtn.forEach((btn) => btn.addEventListener("click", UI.removeTodo));
+  }
+
+  static removeTodo() {
+    const categoryId = document
+      .querySelector(".active")
+      .getAttribute("data-name");
+
+    let todoId =
+      this.parentElement.parentElement.parentElement.getAttribute("data-id");
+    projectList.removeTodo(categoryId, todoId);
+    UI.clearTodoUI();
+    UI.loadTodo(categoryId);
+  }
+
+  static completeTodo() {
+    console.log("complete");
   }
 }
