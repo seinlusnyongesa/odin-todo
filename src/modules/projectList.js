@@ -4,7 +4,7 @@ import todoFactory from "./todo";
 const projectList = (function () {
   let projects = [];
 
-  let _initial = ["home", "another", "ashiee"];
+  let _initial = ["home"];
 
   for (let i of _initial) {
     addProject(Project(i));
