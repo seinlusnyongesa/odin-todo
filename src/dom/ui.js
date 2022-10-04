@@ -1,5 +1,5 @@
-const projectList = require("../modules/projectList");
-const Project = require("../modules/project");
+import Project from "../modules/project";
+import projectList from "../modules/projectList";
 
 export default class UI {
   // display available projects
@@ -7,10 +7,11 @@ export default class UI {
   static loadProjects() {
     const projectsContainer = document.querySelector(".projects-container");
     const defaultProjectContainer = document.querySelector(".default-projects");
+
     for (let i of projectList.projects) {
       if (i.name !== "home") {
         projectsContainer.innerHTML += `
-            <div class="project project-list link" data-name=${i.name} id="link">
+            <div class="project project-list link" data-name=${i.id} id="link">
               <div>
                 <img src="./checkbox.png" alt="project image" />
                 <p> ${i.name}</p>
@@ -20,7 +21,7 @@ export default class UI {
               </button>
             </div>`;
       } else if (i.name === "home") {
-        defaultProjectContainer.innerHTML += `<div class="project-list link active" data-name=${i.name} id="link">
+        defaultProjectContainer.innerHTML += `<div class="project-list link active" data-name=${i.id} id="link">
               <img src="./home.png" alt="home image" />
               <p>${i.name}</p>
             </div>`;
@@ -32,14 +33,14 @@ export default class UI {
 
   // populate todo for a selected project
 
-  static loadTodo(name) {
+  static loadTodo(id) {
     const todos = document.querySelector(".todos");
     const todosHeader = document.querySelector(".content>h1");
     for (let i of projectList.projects) {
-      if (i.name === name) {
+      if (i.id === id) {
         todosHeader.innerHTML = `${i.name}`;
         for (let j of i.todos) {
-          todos.innerHTML += `<div class="todo-container">
+          todos.innerHTML += `<div class="todo-container" data-id=${i.id}>
                     <div class="todo-prop">
                       <div class="todo-title">
                         <p>${j.title}</p>
@@ -94,7 +95,13 @@ export default class UI {
     const submitProjectBtn = document.querySelector(
       ".project-form button:nth-child(2)"
     );
+
     submitProjectBtn.addEventListener("click", UI.getProjectInputvalue);
+
+    const deleteProjectBtn = document.querySelectorAll(".project-list button");
+    deleteProjectBtn.forEach((btn) => {
+      btn.addEventListener("click", UI.removeProject);
+    });
   }
 
   static initTodoFormBtns() {
@@ -105,6 +112,10 @@ export default class UI {
       ".todo-form button:nth-child(1)"
     );
     closeAddTodoFormBtn.addEventListener("click", UI.hideTodoForm);
+    const submitTodoBtn = document.querySelector(
+      ".todo-form button:nth-child(2)"
+    );
+    submitTodoBtn.addEventListener("click", UI.getTodoInputValues);
   }
 
   static updateActiveProject() {
@@ -118,8 +129,17 @@ export default class UI {
       allProjectLinks.forEach((link) => link.classList.remove("active"));
       this.classList.add("active");
 
+      UI.clearTodoUI();
       UI.loadTodo(this.getAttribute("data-name"));
     }
+  }
+
+  static removeProject() {
+    let name = this.parentElement.getAttribute("data-name");
+
+    projectList.deleteProject(name);
+    UI.clearProjectsUI();
+    UI.loadProjects();
   }
 
   //projectForm
@@ -144,7 +164,6 @@ export default class UI {
   static addProject(name) {
     UI.clearProjectsUI();
     projectList.addProject(Project(name));
-    console.log(projectList.projects);
     UI.loadProjects();
   }
 
@@ -158,5 +177,51 @@ export default class UI {
     while (defaultProjectContainer.children.length > 0) {
       defaultProjectContainer.lastChild.remove();
     }
+  }
+
+  //todo form
+  static getTodoInputValues(e) {
+    e.preventDefault();
+    const titleElement = document.querySelector("#title");
+    const descriptionElement = document.querySelector("#description");
+    const dueDateElement = document.querySelector("#duedate");
+    const priorityElement = document.querySelector("#priority");
+
+    const projectElement = document.querySelector(".active");
+    const projectName = projectElement.getAttribute("data-name");
+
+    const title = titleElement.value;
+    const description = descriptionElement.value;
+    const dueDate = dueDateElement.value;
+    const priority = priorityElement.value;
+    UI.addTodo(projectName, { title, description, dueDate, priority });
+    UI.clearTodoForm(
+      titleElement,
+      descriptionElement,
+      dueDateElement,
+      priorityElement
+    );
+    UI.hideTodoForm(e);
+    console.log(projectList.projects);
+  }
+
+  static addTodo(name, values) {
+    UI.clearTodoUI();
+    projectList.addTodos(name, values);
+    UI.loadTodo(name);
+  }
+
+  static clearTodoUI() {
+    const todosContainer = document.querySelector(".todos");
+    while (todosContainer.children.length > 0) {
+      todosContainer.lastChild.remove();
+    }
+  }
+
+  static clearTodoForm(title, description, dueDate, priority) {
+    title.value = "";
+    description.value = "";
+    dueDate.value = "";
+    priority.value = "";
   }
 }

@@ -1,6 +1,9 @@
+const { v4: uuidv4 } = require("uuid");
+
 function Project(name) {
   let project = {};
 
+  project.id = uuidv4();
   project.name = name;
   project.todos = [];
 

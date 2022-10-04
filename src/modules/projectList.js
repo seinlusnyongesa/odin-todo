@@ -1,4 +1,5 @@
 const Project = require("./project");
+import todoFactory from "./todo";
 
 const projectList = (function () {
   let projects = [];
@@ -19,9 +20,23 @@ const projectList = (function () {
     projects.push(project);
   }
 
-  function deleteProject(name) {
-    const modifiedList = projects.filter((project) => project.name !== name);
-    let projects = modifiedList;
+  function addTodos(id, values) {
+    let todo = todoFactory();
+    Object.assign(todo, values);
+
+    for (let i of projects) {
+      if (i.id === id) {
+        i.addTodo(todo);
+      }
+    }
+  }
+
+  function deleteProject(id) {
+    for (let i = 0; i < projects.length; i++) {
+      if (projects[i].id === id) {
+        projects.splice(i, 1);
+      }
+    }
   }
 
   function clear() {
@@ -29,7 +44,8 @@ const projectList = (function () {
       projects.pop();
     }
   }
-  return { projects, addProject, clear, deleteProject };
+
+  return { projects, addProject, clear, deleteProject, addTodos };
 })();
 
-module.exports = projectList;
+export default projectList;

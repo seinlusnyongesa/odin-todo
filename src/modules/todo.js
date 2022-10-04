@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 
-function Todo(title, description, dueDate, priority) {
+const todoFactory = (title, description, dueDate, priority) => {
   let todo = {};
   todo.id = uuidv4();
   todo.title = title;
@@ -26,4 +26,6 @@ function Todo(title, description, dueDate, priority) {
   };
 
   return todo;
-}
+};
+
+module.exports = todoFactory;
