@@ -57,7 +57,7 @@ export default class UI {
                     </div>
                     <div class="more-details hide-more-details">
                       <p>title: ${j.title}</p>
-                      <p>description: some cool descritption</p>
+                      <p>description: ${j.description}</p>
                       <p>due : ${formatDistanceToNow(new Date(j.dueDate), {
                         addSuffix: true,
                       })}</p>
@@ -229,7 +229,6 @@ export default class UI {
     title.value = "";
     description.value = "";
     dueDate.value = "";
-    priority.value = "";
   }
 
   static initTodoBtns() {

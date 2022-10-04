@@ -8,7 +8,7 @@ function Project(name) {
   project.todos = [];
 
   project.addTodo = function (todo) {
-    if (todo.title === "" || todo.dueDate === "" || todo.dueDate === "") {
+    if (todo.title === "" || todo.description === "" || todo.dueDate === "") {
       alert("fill in the fields before submiting");
       return;
     }
