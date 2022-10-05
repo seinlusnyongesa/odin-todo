@@ -138,6 +138,7 @@ export default class UI {
       this.classList.add("active");
 
       UI.clearTodoUI();
+      console.log(this.getAttribute("data-name"));
       UI.loadTodo(this.getAttribute("data-name"));
     }
   }

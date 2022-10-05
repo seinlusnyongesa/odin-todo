@@ -18,15 +18,21 @@ function Project(name) {
         return;
       }
     }
+
     project.todos.push(todo);
   };
 
   project.deleteTodo = function (id) {
+    console.log(project.todos);
     for (let i of project.todos) {
+      console.log("id", id);
+      console.log(i);
       if (i.id === id) {
+        console.log(i);
         project.todos.splice(i, 1);
       }
     }
+    console.log(id);
   };
   project.completeTodo = function (id) {
     for (let i of project.todos) {

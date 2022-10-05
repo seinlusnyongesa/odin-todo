@@ -1,5 +1,6 @@
 const Project = require("./project");
 import todoFactory from "./todo";
+import Storage from "./storage";
 
 const projectList = (function () {
   let projects = [];
@@ -7,7 +8,19 @@ const projectList = (function () {
   let _initial = ["home"];
 
   for (let i of _initial) {
-    addProject(Project(i));
+    if (getItems()) {
+      let items = getItems().map((item) => item);
+      for (let i of items) {
+        let id = addProject(Project(i.name));
+        // addProject();
+        for (let j of i.todos) {
+          let { title, description, dueDate } = j;
+          addTodos(id, { title, description, dueDate });
+        }
+      }
+    } else {
+      addProject(Project(i));
+    }
   }
 
   function addProject(project) {
@@ -18,6 +31,8 @@ const projectList = (function () {
       }
     }
     projects.push(project);
+    _store();
+    return project.id;
   }
 
   function addTodos(id, values) {
@@ -26,9 +41,11 @@ const projectList = (function () {
 
     for (let i of projects) {
       if (i.id === id) {
+        console.log(i.todos);
         i.addTodo(todo);
       }
     }
+    _store();
   }
 
   function removeTodo(projId, elementId) {
@@ -37,6 +54,7 @@ const projectList = (function () {
         i.deleteTodo(elementId);
       }
     }
+    _store();
   }
 
   function deleteProject(id) {
@@ -45,6 +63,7 @@ const projectList = (function () {
         projects.splice(i, 1);
       }
     }
+    _store();
   }
 
   function completeTodo(projId, elementId) {
@@ -53,12 +72,24 @@ const projectList = (function () {
         i.completeTodo(elementId);
       }
     }
+    _store();
   }
 
   function clear() {
     while (projects.length > 0) {
       projects.pop();
     }
+  }
+
+  function _store() {
+    Storage.storeItem("projects", projects);
+  }
+  function getItems() {
+    return Storage.getItem("projects");
+  }
+
+  function firstItem() {
+    return projects[0].id;
   }
 
   return {
@@ -69,6 +100,7 @@ const projectList = (function () {
     addTodos,
     removeTodo,
     completeTodo,
+    firstItem,
   };
 })();
 
