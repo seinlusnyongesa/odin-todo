@@ -88,6 +88,7 @@ const projectList = (function () {
     return Storage.getItem("projects");
   }
 
+  // this is an item to be used for the intial page load.
   function firstItem() {
     return projects[0].id;
   }
